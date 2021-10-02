@@ -1,5 +1,6 @@
 package com.example.locationtrack;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -10,6 +11,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -17,14 +21,21 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    boolean isPermisstionGranted=false;
+    MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mapView = findViewById(R.id.mapView);
         checkPermission();
+        if(isPermisstionGranted){
+            mapView.getMapAsync(this);
+            mapView.onCreate(savedInstanceState);
+        }
     }
 
     private void checkPermission() {
@@ -34,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                 Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                isPermisstionGranted = true;
             }
 
             @Override
@@ -50,5 +62,40 @@ public class MainActivity extends AppCompatActivity {
                 permissionToken.continuePermissionRequest();
             }
         }).check();
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
