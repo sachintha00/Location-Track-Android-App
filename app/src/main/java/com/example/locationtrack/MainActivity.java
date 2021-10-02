@@ -3,7 +3,11 @@ package com.example.locationtrack;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
+import android.media.audiofx.Equalizer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
@@ -34,12 +38,16 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package",getPackageName(),"");
+                intent.setData(uri);
+                startActivity(intent);
             }
 
             @Override
             public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
-
+                permissionToken.continuePermissionRequest();
             }
         }).check();
     }
