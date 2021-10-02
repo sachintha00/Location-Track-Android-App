@@ -26,6 +26,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     boolean isPermisstionGranted;
+    GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-
+        this.googleMap = googleMap;
+        this.googleMap.setMyLocationEnabled(true);
     }
 }
