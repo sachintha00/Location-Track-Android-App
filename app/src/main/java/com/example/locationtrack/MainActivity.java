@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.media.audiofx.Equalizer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.widget.Toast;
 
@@ -23,7 +24,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    boolean isPermisstionGranted=false;
+    boolean isPermisstionGranted;
     MapView mapView;
 
     @Override
@@ -72,30 +73,42 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onStart() {
         super.onStart();
+        mapView.onStart();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        mapView.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mapView.onDestroy();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
+        mapView.onLowMemory();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        mapView.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistableBundle) {
+        super.onSaveInstanceState(outState,outPersistableBundle);
+        mapView.onSaveInstanceState(outState);
     }
 }
